@@ -12,6 +12,7 @@ const NAV = [
   { label: 'Client Call Prep', icon: '\u260E', href: 'pages/client-call.html', id: 'client-call' },
 
   { section: 'Playbooks' },
+  { label: 'Meta Relaunch', icon: '\uD83D\uDE80', href: 'pages/meta-relaunch.html', id: 'meta-relaunch' },
   { label: 'Campaign Buckets', icon: '\u25CE', href: 'pages/campaigns.html', id: 'campaigns' },
   { label: 'Creative Triage', icon: '\u2704', href: 'pages/creative.html', id: 'creative' },
 
