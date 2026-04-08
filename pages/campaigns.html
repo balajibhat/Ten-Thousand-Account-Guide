@@ -98,38 +98,57 @@
 <div class="mockup">
   <div class="mockup-header" style="background: #2a2a1a;">
     &#128722; Shopping (Non-Brand)
-    <span class="tag" style="background: #f59e0b20; color: var(--amber);">Fix in progress &mdash; feed is the lever</span>
+    <span class="tag" style="background: #22c55e20; color: var(--green);">Feed live &mdash; custom labels active (March 31, 2026)</span>
   </div>
   <div style="padding: 20px;">
+    <div style="background: #1a2a1a; border: 1px solid #22c55e40; border-radius: 8px; padding: 16px; margin-bottom: 20px;">
+      <strong style="color: var(--green);">&#9989; Supplemental Feed Status</strong><br>
+      <span class="dim">Uploaded March 31, 2026.</span> 4,053 products. All attributes recognized. Custom labels live:<br>
+      <code>custom_label_1</code> = priority tier (hero / core / long_tail)<br>
+      <code>custom_label_2</code> = category (shorts / shirts / pants / outerwear / underwear / accessories)<br>
+      <code>custom_label_3</code> = collection (interval / tactical / session / rep / other)<br>
+      <code>custom_label_4</code> = seasonality (summer_peak / winter_peak / evergreen)<br>
+      <span class="dim">Feed includes both Shopify ID formats (shopify_US_ prefix + numeric) to maximize match rate. Do not deduplicate without verifying match rates first.</span>
+    </div>
     <table>
       <tr>
         <td style="width: 140px; vertical-align: top;" class="bold dim">Goal</td>
-        <td>Scale Shopping into a real revenue driver. Currently underperforming because the feed is broken &mdash; miscategorized products, missing attributes, no custom labels. The supplemental feed we built should fix this. <strong>Post-upload, this is the biggest upside campaign bucket.</strong></td>
+        <td>Scale Shopping into a real revenue driver. Feed was fixed March 31 &mdash; categories corrected, gender/age_group populated, custom labels enabled for bid segmentation. <strong>Now the lever is campaign restructuring around the new labels.</strong></td>
       </tr>
       <tr>
         <td class="bold dim" style="vertical-align: top;">Healthy looks like</td>
-        <td>ROAS 3x+ (aspirational &mdash; currently 1.2x). Products appearing in correct categories. Shorts queries show shorts, not t-shirts. OOS products suppressed. High impression share on hero products.</td>
+        <td>ROAS 3x+ (stretch target &mdash; baseline was 1.2x pre-feed-fix). Products appearing in correct categories. Shorts queries show shorts, not t-shirts. OOS products suppressed. Hero products (Interval, Tactical) getting disproportionate impression share via higher bids.</td>
       </tr>
       <tr>
         <td class="bold dim" style="vertical-align: top;">Deterioration signals</td>
         <td>
-          <span class="neg">ROAS below 1.5x after feed upload</span> &mdash; feed fix didn't move the needle, deeper issues at play.<br>
+          <span class="neg">ROAS below 1.5x two weeks post-feed-fix</span> &mdash; feed fix alone didn't move the needle, need campaign restructure or landing page investigation.<br>
           <span class="neg">High click volume but no conversions on specific products</span> &mdash; likely OOS products still showing, or product pages not converting.<br>
-          <span class="neg">Impression share declining</span> &mdash; competitors outbidding or feed quality score still low.<br>
-          <span class="neg">Products miscategorized in Merchant Center</span> &mdash; supplemental feed not applying correctly, check for ID mismatches.
+          <span class="neg">Impression share declining on hero products</span> &mdash; competitors outbidding or bid strategy not aggressive enough on hero tier.<br>
+          <span class="neg">Custom labels not visible in Google Ads product groups</span> &mdash; feed sync issue. Check Merchant Center for errors, re-download error report.<br>
+          <span class="neg">Match rate drops significantly</span> &mdash; primary feed changed (Shopify product removals). Cross-reference supplemental IDs against current primary feed.
         </td>
       </tr>
       <tr>
         <td class="bold dim" style="vertical-align: top;">Levers to pull</td>
         <td>
-          <strong>Devesh:</strong> After supplemental feed upload, track ROAS daily for 2 weeks to measure before/after impact. Use custom labels to create product-group bid adjustments &mdash; bid higher on hero products (Interval shorts), lower on low-margin or low-volume items. Check for OOS products eating clicks (this was 59% of the feed before). Monitor search term overlap with non-brand search to avoid internal competition.<br>
-          <strong>Jackie:</strong> Coordinate with Patrick's team when new products launch &mdash; notify Balaji so the supplemental feed gets updated. Ensure product images in the feed are strong (lifestyle shots > flat lays for Shopping).<br>
-          <strong>Together:</strong> If Shopping starts scaling, this becomes the single biggest opportunity. Track it closely post-feed-upload and report before/after to the client with concrete numbers.
+          <strong>Devesh (immediate):</strong> Verify custom labels are visible in Google Ads (check Subdivide &rarr; Custom label 1 dropdown). Once confirmed, restructure Shopping product groups by <code>custom_label_1</code>: hero products get higher tROAS / more aggressive bids, core gets standard bids, long_tail gets lower bids or exclusion. Build a <strong>new Shopping campaign for shirts</strong> (22% of revenue, currently zero Shopping coverage) &mdash; filter by <code>custom_label_2 = shirts</code>. Track ROAS daily for 2 weeks to measure before/after impact. Check for OOS products eating clicks.<br>
+          <strong>Jackie:</strong> Coordinate with Patrick's team when new products launch &mdash; notify Balaji so the supplemental feed gets updated within 24 hours. Ensure product images in the feed are strong (lifestyle shots > flat lays for Shopping).<br>
+          <strong>Together:</strong> Shopping is now the biggest upside campaign bucket. Track closely and report before/after to the client with concrete numbers. Flag to Balaji if match rate drops or new products aren't appearing.
+        </td>
+      </tr>
+      <tr>
+        <td class="bold dim" style="vertical-align: top;">Feed maintenance</td>
+        <td>
+          <strong>Monthly:</strong> Export fresh Shopify product data. Run supplemental feed script. Remove discontinued products, add new ones, update categories/labels. Re-upload to Merchant Center.<br>
+          <strong>On product launch:</strong> Add to supplemental feed same day with full attributes and correct custom labels.<br>
+          <strong>Never:</strong> Edit the feed CSV in Excel or Google Sheets &mdash; it corrupts numeric IDs into scientific notation. Use Python scripts or a text editor only.<br>
+          <strong>Script location:</strong> <code>Documents/Clients/Ten Thousand/fix_supplemental_feed.py</code>
         </td>
       </tr>
       <tr>
         <td class="bold dim" style="vertical-align: top;">Client call framing</td>
-        <td><em>Pre-feed upload:</em> "Shopping is still underperforming at 1.2x ROAS. We have the supplemental feed ready &mdash; once uploaded, we expect material improvement from proper categorization, custom labels, and OOS suppression. We'll report before/after."<br><em>Post-feed upload:</em> "Since the feed went live on [date], Shopping ROAS has moved from 1.2x to [X]. Here's the product-level breakdown of what's working."</td>
+        <td>"The supplemental feed went live March 31. Every product now has correct categories, gender/age attributes, and custom labels for campaign segmentation. We're restructuring Shopping product groups around hero/core/long_tail tiers. We'll have before/after ROAS reads by mid-April. We're also building a dedicated Shopping campaign for shirts &mdash; 22% of revenue with zero Shopping coverage until now."</td>
       </tr>
     </table>
   </div>
@@ -227,7 +246,7 @@
     <table>
       <tr>
         <td style="width: 140px; vertical-align: top;" class="bold dim">Goal</td>
-        <td>Primary growth channel. Was offline since ~January 2026 (payment issue). Relaunching April 6 with a simplified 4-campaign structure: ASC Prospecting, DABA Catalog, DPA Retargeting, Retention. 2025 generated $8.52M revenue at 1.54x ROAS. Spring (Apr-Jun) was the strongest season. <strong>Full plan in <a href="meta-relaunch.html" style="color: var(--blue);">Meta Relaunch Plan</a>.</strong></td>
+        <td>Primary growth channel. Was offline since ~January 2026 (payment issue). Relaunching April 6 with a simplified 4-campaign structure: ASC Prospecting, DABA Catalog, DPA Retargeting, Retention. 2025 generated $8.52M revenue at 1.54x ROAS. Spring (Apr-Jun) was the strongest season. <strong>All Meta campaigns launch tagged [EXP]</strong> and graduate to [CORE] only after demonstrating consistent performance at or below pCPA target for 2+ weeks. See <a href="#" onclick="document.querySelector('h2#naming-convention')?.scrollIntoView()" style="color: var(--amber);">Naming Convention</a> section below. <strong>Full plan in <a href="meta-relaunch.html" style="color: var(--blue);">Meta Relaunch Plan</a>.</strong></td>
       </tr>
       <tr>
         <td class="bold dim" style="vertical-align: top;">Healthy looks like</td>
@@ -260,6 +279,89 @@
     </table>
   </div>
 </div>
+
+<!-- NAMING CONVENTION -->
+<hr class="divider">
+<h2>Campaign Naming Convention</h2>
+<p class="section-desc">Every campaign and ad set name follows a structured naming convention that drives automated reporting in the BI dashboard. The [CORE]/[EXP] tag is the most critical element — it determines how performance is categorized.</p>
+
+<div class="naming-grid">
+  <div class="naming-box" style="border-left: 3px solid var(--green);">
+    <h4 style="color: var(--green);">[CORE] — Proven, Stable, Always-On</h4>
+    <div style="font-size: 13px;">
+      Campaigns and ad sets tagged <code>[CORE]</code> are included in the <strong>Core pCPA</strong> metric that the client tracks. These are graduated, proven performers with consistent results at or below pCPA target. Core pCPA is the number Patrick watches — it represents the health of the proven media mix.
+    </div>
+  </div>
+  <div class="naming-box" style="border-left: 3px solid var(--amber);">
+    <h4 style="color: var(--amber);">[EXP] — Testing, Unproven, Learning Phase</h4>
+    <div style="font-size: 13px;">
+      Campaigns and ad sets tagged <code>[EXP]</code> are <strong>excluded from Core pCPA</strong> and reported separately as experimental spend. This protects the core metric from noise during testing. Experimental campaigns are expected to have higher CPAs — that's the cost of learning. They show up in the <strong>Blended pCPA</strong> alongside Core.
+    </div>
+  </div>
+</div>
+
+<div class="mockup">
+  <div class="mockup-header">Where Tags Go — By Platform</div>
+  <table>
+    <thead>
+      <tr>
+        <th>Platform</th>
+        <th>Tag Level</th>
+        <th>Why</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="bold">Google Ads</td>
+        <td>Campaign level only</td>
+        <td>Google campaigns are structured enough that the entire campaign is either core or experimental. No ad set level tagging needed.</td>
+      </tr>
+      <tr>
+        <td class="bold">Meta Ads / Snapchat / Social</td>
+        <td>Ad set level only</td>
+        <td>Social platforms tag at the ad set level because a testing ad set can exist within an otherwise core campaign (e.g., testing new creative in a proven prospecting campaign). Campaign names do NOT carry the tag. If an entire campaign is experimental, every ad set in it gets <code>[EXP]</code>. The dashboard parses ad set names to determine classification.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="mockup">
+  <div class="mockup-header">Naming Format &amp; Examples</div>
+  <div style="padding: 20px; font-size: 13px;">
+    <strong>Google campaign format:</strong><br>
+    <code>RK_[CORE/EXP]_Google_CampaignType_Geo_ProductOrAudience</code><br><br>
+    <strong>Social campaign format (Meta / Snap / X):</strong> no tag on campaign name<br>
+    <code>RK_Platform_CampaignType_Audience</code><br><br>
+    <strong>Social ad set format:</strong> tag lives here<br>
+    <code>RK_[CORE/EXP]_Platform_CampaignType_AudienceOrProduct_Variant</code><br><br>
+
+    <div style="margin-top: 16px;">
+      <strong style="color: var(--green);">Google Ads examples:</strong><br>
+      <code>RK_[CORE]_Google_Search_Nonbrand_USA_Shorts_Focused</code><br>
+      <code>RK_[EXP]_Google_DemandGen_USA_Video</code><br><br>
+
+      <strong style="color: var(--blue);">Meta Ads examples:</strong><br>
+      Campaign: <code>RK_Meta_ASC_Prospecting</code> (no tag on campaign)<br>
+      &nbsp;&nbsp;Ad set: <code>RK_[CORE]_Meta_ASC_Broad_Shorts</code><br>
+      &nbsp;&nbsp;Ad set: <code>RK_[EXP]_Meta_ASC_Broad_NewCreativeTest</code><br><br>
+      Campaign: <code>RK_Meta_Retention_Reactivation</code> (entire campaign is experimental)<br>
+      &nbsp;&nbsp;Ad set: <code>RK_[EXP]_Meta_Retention_Lapsed180d</code><br>
+      &nbsp;&nbsp;Ad set: <code>RK_[EXP]_Meta_Retention_NewDrops</code><br>
+      &nbsp;&nbsp;(all ad sets tagged [EXP] when the whole campaign is experimental)
+    </div>
+  </div>
+</div>
+
+<div class="logic-box">
+  <span class="label">Graduation rules: [EXP] to [CORE]</span>
+  A campaign or ad set graduates from <code>[EXP]</code> to <code>[CORE]</code> when it has demonstrated <strong>consistent performance at or below pCPA target for at least 2 weeks</strong>. Graduation is a team decision (Balaji approves), not automatic. When graduating: rename the campaign/ad set, swapping <code>[EXP]</code> for <code>[CORE]</code>. The dashboard automatically recalculates Core vs Blended pCPA based on the name change.
+</div>
+
+<div class="note warn">
+  <strong>All new campaigns launch as [EXP].</strong> This includes the Meta relaunch — every Meta campaign starts tagged [EXP] until it graduates. This protects the Core pCPA from learning-phase noise and gives the team a clean separation between "what we know works" and "what we're proving out."
+</div>
+
+<hr class="divider">
 
 <!-- SNAP / EXPERIMENTAL -->
 <div class="mockup">
@@ -303,7 +405,7 @@
 </div>
 
 <div class="footer">
-  <p>Prepared by Red Krypton x Archer. Balaji Bhat. March 20, 2026</p>
+  <p>Prepared by Core Digital Expansion. Updated April 8, 2026</p>
 </div>
 
 <script src="../layout.js"></script>
