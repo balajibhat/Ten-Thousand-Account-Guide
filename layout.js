@@ -136,10 +136,12 @@ async function downloadPDF() {
       sections.push({ title: page.label, content });
     }
 
+    const brandTitle = document.querySelector('.sidebar-brand h1')?.textContent || 'Playbook';
+    const brandBadge = document.querySelector('.sidebar-brand .badge')?.textContent || '';
     const printWindow = window.open('', '_blank');
     printWindow.document.write(`<!DOCTYPE html>
 <html><head>
-<title>Ten Thousand — Team Ops Playbook</title>
+<title>${brandTitle} — ${brandBadge}</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -189,8 +191,8 @@ async function downloadPDF() {
 </style>
 </head><body>
 <div class="pdf-cover">
-  <h1>Ten Thousand</h1>
-  <p>Team Ops Playbook</p>
+  <h1>${brandTitle}</h1>
+  <p>${brandBadge}</p>
   <p style="margin-top: 24px; font-size: 12px; color: #999;">Generated ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
 </div>
 ${sections.map(s => `<div class="pdf-section">${s.content}</div>`).join('\n')}
